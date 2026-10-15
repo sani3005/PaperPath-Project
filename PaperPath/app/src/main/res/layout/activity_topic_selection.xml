@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayoutTopicSelection"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    tools:ignore="MissingClass"
+    tools:context=".TopicSelectionActivity">
+
+    <ScrollView
+        android:id="@+id/scrollViewTopics"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="24dp">
+
+            <!-- Logo Header -->
+            <FrameLayout
+                android:id="@+id/logoContainer"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/bg_circle_logo"
+                android:elevation="3dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/cd_logo"
+                    android:src="@drawable/ic_smartcfp_logo" />
+            </FrameLayout>
+
+            <!-- Screen Title -->
+            <TextView
+                android:id="@+id/tvTopicTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/topic_selection_title"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/tvTopicSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/topic_selection_subtitle"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <!-- Selection Hint Badge -->
+            <TextView
+                android:id="@+id/tvTopicHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/topic_selection_hint"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- Card Containing Chip Group -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupDomains"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <!-- Domain 1: AI -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAi"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_ai"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 2: Computer Vision -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCv"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_cv"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 3: NLP -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipNlp"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_nlp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 4: Machine Learning -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMl"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_ml"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 5: Distributed Systems -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSystems"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_systems"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 6: Cloud Computing -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCloud"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_cloud"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 7: Cybersecurity -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSecurity"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_security"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 8: IoT -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipIot"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_iot"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 9: HCI -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipHci"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_hci"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 10: Software Engineering -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSe"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_se"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 11: Robotics -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRobotics"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_robotics"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 12: Data Science -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipData"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_data"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 13: Networking -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipNetworks"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_networks"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <!-- Domain 14: Quantum Computing -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipQuantum"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_quantum"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Container with Action Button -->
+    <LinearLayout
+        android:id="@+id/bottomButtonContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinueToFeed"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/btn_continue_to_feed"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/dark_blue_primary"
+            app:cornerRadius="14dp"
+            app:elevation="2dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

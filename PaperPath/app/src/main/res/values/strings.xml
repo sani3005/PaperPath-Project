@@ -1,0 +1,127 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="Typos,SpellCheckingInspection,GrammarInspection">
+    <string name="app_name">SmartCFP</string>
+    <string name="app_tagline">Discover • Track • Apply</string>
+    <string name="app_welcome_sub">Your smart companion for the latest Call for Papers from top conferences around the world.</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_back">Back</string>
+    <string name="cd_documents">Conferences</string>
+    <string name="cd_logo">SmartCFP Logo</string>
+    <string name="cd_google">Google</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_filter">Filter</string>
+    <string name="cd_bookmark">Bookmark</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_profile">Profile</string>
+
+    <!-- Sign In Strings -->
+    <string name="sign_in_title">Welcome Back 👋</string>
+    <string name="sign_in_subtitle">Sign in to explore the latest conferences</string>
+    <string name="email_or_user_hint">Email or Username</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="full_name_hint">Full Name</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="or_divider">OR</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="no_account_prompt">Don\'t have an account? </string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="already_have_account">Already have an account? </string>
+    <string name="action_login">Login</string>
+
+    <!-- Sign Up Strings -->
+    <string name="sign_up_title">Create Account</string>
+    <string name="sign_up_subtitle">Join SmartCFP and never miss a conference opportunity</string>
+
+    <!-- Home Dashboard Strings -->
+    <string name="greeting_morning">Good Morning,</string>
+    <string name="greeting_user_default">Saniya ✨</string>
+    <string name="greeting_subtitle">Explore new opportunities, expand your horizons!</string>
+    <string name="search_conferences_hint">Search conferences...</string>
+    <string name="cat_all">All</string>
+    <string name="cat_cs">Computer Science</string>
+    <string name="cat_ai">AI &amp; ML</string>
+    <string name="cat_eng">Engineering</string>
+    <string name="latest_conferences">Latest Conferences</string>
+    <string name="see_all">See All</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_tab_home">Home</string>
+    <string name="nav_tab_saved">Saved</string>
+    <string name="nav_tab_notifications">Notifications</string>
+    <string name="nav_tab_profile">Profile</string>
+
+    <!-- Conference Details -->
+    <string name="about_title">About</string>
+    <string name="key_dates_title">Key Dates</string>
+    <string name="deadline_submissions">Paper Submissions Deadline</string>
+    <string name="deadline_acceptance">Acceptance Notification</string>
+    <string name="deadline_camera_ready">Camera Ready</string>
+    <string name="save_for_later">Save for Later</string>
+    <string name="saved_for_later">Saved for Later</string>
+
+    <!-- Search & Filter -->
+    <string name="tab_upcoming">Upcoming</string>
+    <string name="tab_ongoing">Ongoing</string>
+    <string name="tab_past">Past</string>
+    <string name="filter_action">Filter</string>
+
+    <!-- Notifications -->
+    <string name="notifications_title">Notifications</string>
+    <string name="tab_reminders">Reminders</string>
+    <string name="tab_updates">Updates</string>
+    <string name="tab_system">System</string>
+
+    <!-- Profile Drawer / Menu -->
+    <string name="default_user_name">Saniya Gaonkar</string>
+    <string name="default_user_email">saniya.g23@gmail.com</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_saved_conferences">Saved Conferences</string>
+    <string name="menu_my_applications">My Applications</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_help_support">Help &amp; Support</string>
+    <string name="menu_about">About SmartCFP</string>
+    <string name="menu_logout">Logout</string>
+
+    <!-- Validation & Status Strings -->
+    <string name="err_empty_name">Please enter your full name</string>
+    <string name="err_empty_email">Please enter your email address</string>
+    <string name="err_invalid_email">Please enter a valid email address</string>
+    <string name="err_empty_password">Please enter your password</string>
+    <string name="err_short_password">Password must be at least 6 characters</string>
+    <string name="err_password_mismatch">Passwords do not match</string>
+    <string name="success_sign_in">Signed in successfully!</string>
+    <string name="success_sign_up">Account created successfully!</string>
+    <string name="welcome_to_smartcfp">Welcome to SmartCFP</string>
+    <string name="err_select_at_least_one_domain">Please select at least one research domain</string>
+
+    <!-- Legacy Activity Strings for TopicSelection & Settings -->
+    <string name="authenticated_status">Your research profile is active</string>
+    <string name="my_research_tracks">My Research Tracks</string>
+    <string name="edit_tracks">Edit</string>
+    <string name="btn_sign_out">Sign Out</string>
+    <string name="topic_selection_title">Select Research Tracks</string>
+    <string name="topic_selection_subtitle">Personalize your feed with domains you want to track</string>
+    <string name="topic_selection_hint">Select one or more research fields:</string>
+    <string name="btn_continue_to_feed">Continue to Smart Feed</string>
+    <string name="btn_save_preferences">Save Preferences</string>
+    <string name="domain_ai">Artificial Intelligence (AI)</string>
+    <string name="domain_cv">Computer Vision (CV)</string>
+    <string name="domain_nlp">Natural Language Processing (NLP)</string>
+    <string name="domain_ml">Machine Learning &amp; Deep Learning</string>
+    <string name="domain_systems">Distributed &amp; Operating Systems</string>
+    <string name="domain_cloud">Cloud &amp; Edge Computing</string>
+    <string name="domain_security">Cybersecurity &amp; Cryptography</string>
+    <string name="domain_iot">Internet of Things (IoT)</string>
+    <string name="domain_hci">Human-Computer Interaction (HCI)</string>
+    <string name="domain_se">Software Engineering</string>
+    <string name="domain_robotics">Robotics &amp; Autonomous Systems</string>
+    <string name="domain_data">Data Science &amp; Big Data</string>
+    <string name="domain_networks">Networking &amp; Wireless Systems</string>
+    <string name="domain_quantum">Quantum Computing</string>
+</resources>

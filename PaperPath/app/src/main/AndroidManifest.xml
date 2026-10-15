@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PaperPath">
+
+        <!-- Screen 1: Splash / Welcome Screen (Main Launcher) -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Screen 2: Login Screen -->
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Screen 3: Sign Up / Create Account Screen -->
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Topic Selection Screen -->
+        <activity
+            android:name=".TopicSelectionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Screen 4: Home Dashboard -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <!-- Screen 5: Conference Detail View -->
+        <activity
+            android:name=".ConferenceDetailActivity"
+            android:exported="false" />
+
+        <!-- Screen 6: Search & Filter Screen -->
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Screen 7: Notifications Screen -->
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="false" />
+
+        <!-- Screen 8: Profile / Navigation Drawer Screen -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+
+        <!-- Settings Screen -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

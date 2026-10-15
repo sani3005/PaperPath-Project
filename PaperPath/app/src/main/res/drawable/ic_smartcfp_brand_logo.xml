@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Orbital Ring Glowing Behind -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M16,56 C14,68 34,74 58,68 C76,64 88,52 84,42 C81,34 68,32 52,36" />
+    <!-- Modern Document Body -->
+    <path
+        android:fillColor="#A855F7"
+        android:pathData="M32,18 L58,18 C62,18 66,22 66,26 L66,70 C66,74 62,78 58,78 L32,78 C28,78 24,74 24,70 L24,26 C24,22 28,18 32,18 Z" />
+    <path
+        android:fillColor="#C084FC"
+        android:pathData="M32,22 L58,22 C60,22 62,24 62,26 L62,32 L28,32 L28,26 C28,24 30,22 32,22 Z" />
+    <!-- Document Text Lines -->
+    <path
+        android:fillColor="#1E1340"
+        android:pathData="M33,40 L57,40 C58,40 59,41 59,42 C59,43 58,44 57,44 L33,44 C32,44 31,43 31,42 C31,41 32,40 33,40 Z" />
+    <path
+        android:fillColor="#1E1340"
+        android:pathData="M33,50 L57,50 C58,50 59,51 59,52 C59,53 58,54 57,54 L33,54 C32,54 31,53 31,52 C31,51 32,50 33,50 Z" />
+    <path
+        android:fillColor="#1E1340"
+        android:pathData="M33,60 L49,60 C50,60 51,61 51,62 C51,63 50,64 49,64 L33,64 C32,64 31,63 31,62 C31,61 32,60 33,60 Z" />
+    <!-- Front Orbital Arc -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#60A5FA"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M16,56 C22,66 42,72 64,66 C80,62 86,52 82,44" />
+    <!-- Sparkle Star on Top Right -->
+    <path
+        android:fillColor="#E0E7FF"
+        android:pathData="M74,16 L76,21 L81,23 L76,25 L74,30 L72,25 L67,23 L72,21 Z" />
+</vector>

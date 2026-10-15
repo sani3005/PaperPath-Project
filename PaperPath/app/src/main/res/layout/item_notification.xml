@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardNotification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/bg_card_dark"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/stroke_card"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp">
+
+        <!-- Notification Icon Circle -->
+        <FrameLayout
+            android:id="@+id/layoutNotifIconBg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivNotifIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_speaker"
+                app:tint="@color/text_white" />
+        </FrameLayout>
+
+        <!-- Notification Title -->
+        <TextView
+            android:id="@+id/tvNotifTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="sans-serif-bold"
+            android:text="New Conference Posted"
+            android:textColor="@color/text_white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/ivNotifChevron"
+            app:layout_constraintStart_toEndOf="@+id/layoutNotifIconBg"
+            app:layout_constraintTop_toTopOf="@+id/layoutNotifIconBg" />
+
+        <!-- Notification Subtitle / Message -->
+        <TextView
+            android:id="@+id/tvNotifMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="2dp"
+            android:text="ICLR 2026 is now available on SmartCFP."
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivNotifChevron"
+            app:layout_constraintStart_toStartOf="@+id/tvNotifTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvNotifTitle" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/tvNotifTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
+            android:text="2 hours ago"
+            android:textColor="@color/text_muted"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivNotifChevron"
+            app:layout_constraintStart_toStartOf="@+id/tvNotifTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvNotifMessage" />
+
+        <!-- Chevron Right -->
+        <ImageView
+            android:id="@+id/ivNotifChevron"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_chevron_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_muted" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.PaperPath" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/gradient_purple_start</item>
+        <item name="colorPrimaryVariant">@color/accent_electric_purple</item>
+        <item name="colorOnPrimary">@color/text_white</item>
+        <item name="colorSecondary">@color/gradient_blue_end</item>
+        <item name="colorOnSecondary">@color/text_white</item>
+        <item name="android:windowBackground">@color/bg_space_dark</item>
+        <item name="android:statusBarColor">@color/bg_space_dark</item>
+        <item name="android:navigationBarColor">@color/bg_bottom_nav</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
