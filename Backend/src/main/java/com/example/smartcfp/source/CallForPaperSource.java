@@ -1,4 +1,3 @@
-
 package com.example.smartcfp.source;
 
 import com.example.smartcfp.model.Conference;
@@ -28,14 +27,16 @@ public class CallForPaperSource implements ConferenceSource {
 
     @Override
     public List<Conference> scrape() throws IOException {
-
-        List<Conference> conferences = new ArrayList<>();
-
         Document document = Jsoup.connect(BASE_URL)
                 .userAgent("Mozilla/5.0")
                 .timeout(30000)
                 .get();
 
+        return parse(document);
+    }
+
+    List<Conference> parse(Document document) {
+        List<Conference> conferences = new ArrayList<>();
         Elements titleLinks = document.select("h3 a[href]");
 
         for (Element titleLink : titleLinks) {
@@ -60,43 +61,24 @@ public class CallForPaperSource implements ConferenceSource {
                 card = card.parent();
             }
 
-            if (card == null) {
-                System.out.println(
-                        "Could not find conference details: "
-                                + longTitle);
-                continue;
-            }
-
             // Extract location.
-            Element countryElement =
-                    card.selectFirst("a[href*='/country/']");
+            Element countryElement = card == null
+                    ? null
+                    : card.selectFirst("a[href*='/country/']");
 
             String location = countryElement != null
                     ? countryElement.text().trim()
-                    : "";
+                    : "Not available";
 
             // Extract dates.
-            Element timeElement = card.selectFirst("time");
+            Element timeElement = card == null
+                    ? null
+                    : card.selectFirst("time");
 
-            String deadline = "";
+            String deadline = "Not available";
 
             if (timeElement != null) {
                 deadline = timeElement.text().trim();
-            }
-
-            // Extract categories.
-            Elements categoryElements =
-                    card.select("a[href*='/categories/']");
-
-            List<String> categories = new ArrayList<>();
-
-            for (Element categoryElement : categoryElements) {
-                String category = categoryElement.text().trim();
-
-                if (!category.isEmpty()
-                        && !categories.contains(category)) {
-                    categories.add(category);
-                }
             }
 
             // Derive short title.

@@ -1,25 +1,36 @@
-
 package com.example.smartcfp.model;
 
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "conference")
 public class Conference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String shortTitle;
 
     @Column(length = 1500)
     private String longTitle;
+
+    @Column(length = 1500)
     private String location;
+
+    @Column(name = "deadline")
     private String deadline;
+
+    @Column(name = "website")
     private String website;
+
+    @Column(name = "sourceName")
     private String sourceName;
 
 
+    protected Conference() {
+    }
 
     // Constructor for creating conference objects manually
     public Conference(Long id, String shortTitle, String longTitle,

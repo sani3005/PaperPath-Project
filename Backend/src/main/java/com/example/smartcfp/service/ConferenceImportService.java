@@ -4,6 +4,8 @@ package com.example.smartcfp.service;
 import com.example.smartcfp.model.Conference;
 import com.example.smartcfp.repository.ConferenceRepository;
 import com.example.smartcfp.source.ConferenceSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,6 +15,9 @@ import java.util.Map;
 
 @Service
 public class ConferenceImportService {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(ConferenceImportService.class);
 
     private final List<ConferenceSource> sources;
     private final ConferenceRepository repository;
@@ -65,6 +70,8 @@ public class ConferenceImportService {
                         ));
 
             } catch (IOException | RuntimeException ex) {
+                logger.error("Failed to import conferences from {}",
+                        source.getSourceName(), ex);
                 report.put(source.getSourceName(),
                         Map.of(
                                 "status", "FAILED",

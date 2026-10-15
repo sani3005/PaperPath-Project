@@ -21,11 +21,11 @@ public class ConferenceController {
         return conferenceService.getAllConferences();
     }
 
-    @GetMapping("/search")
-    public List<Conference> searchConference(
-            @RequestParam String keyword) {
-        return conferenceService.searchConferences(keyword);
-    }
+//    @GetMapping("/search")
+//    public List<Conference> searchConference(
+//            @RequestParam String keyword) {
+//        return conferenceService.searchConference(keyword);
+//    }
 
 
 

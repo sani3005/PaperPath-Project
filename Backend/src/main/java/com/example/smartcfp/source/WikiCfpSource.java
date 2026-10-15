@@ -1,4 +1,3 @@
-
 package com.example.smartcfp.source;
 
 import com.example.smartcfp.model.Conference;
@@ -22,17 +21,18 @@ public class WikiCfpSource implements ConferenceSource {
 
     @Override
     public List<Conference> scrape() throws IOException {
-        List<Conference> conferences= new ArrayList<>();
-
-        String url = "http://www.wikicfp.com/cfp/";
+        String url = "https://www.wikicfp.com/cfp/";
 
         Document doc = Jsoup.connect(url)
                 .userAgent("Mozilla/5.0")
                 .timeout(20000)
                 .get();
 
-        System.out.println("Website: " + doc.title());
+        return parse(doc);
+    }
 
+    List<Conference> parse(Document doc) {
+        List<Conference> conferences = new ArrayList<>();
         Elements links = doc.select("a[href*='event.showcfp']");
 
         for (Element link : links) {
@@ -43,7 +43,6 @@ public class WikiCfpSource implements ConferenceSource {
             Element row = link.closest("tr");
 
             String fullTitle = "";
-            String date = "Not available";
             String location = "Not available";
             String deadline = "Not available";
 
@@ -62,20 +61,19 @@ public class WikiCfpSource implements ConferenceSource {
                     Elements details = detailsRow.select("td");
 
                     if (details.size() >= 3) {
-                        date = details.get(0).text();
                         location = details.get(1).text();
                         deadline = details.get(2).text();
                     }
                 }
             }
             Conference conference = new Conference(
-                    0l,
+                    null,
                     shortTitle,
                     fullTitle,
-                    date,
                     location,
                     deadline,
-                    eventLink
+                    eventLink,
+                    getSourceName()
             );
             conferences.add(conference);
 //            System.out.println("Conference: " + conference);
