@@ -1,8 +1,24 @@
 package com.example.smartcfp.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users",uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
+
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false,unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
     public User(String name, String email,String password){
@@ -11,6 +27,9 @@ public class User {
         this.password=password;
     }
 
+    public long getId(){
+        return id;
+    }
     public String getName() {
         return name;
     }
