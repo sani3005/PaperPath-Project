@@ -127,23 +127,6 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/tabPast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_tab_pill_inactive"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="sans-serif-medium"
-                    android:paddingStart="18dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="18dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tab_past"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp" />
-
             </LinearLayout>
         </HorizontalScrollView>
 

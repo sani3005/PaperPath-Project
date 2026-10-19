@@ -21,7 +21,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements ConferenceAdapter.OnConferenceClickListener {
 
     private NestedScrollView scrollViewHome;
-    private TextView tvGreetingUser;
     private View layoutGreeting;
     private View layoutSearchBar;
     private View scrollCategories;
@@ -98,11 +97,6 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
     private void initViews() {
         scrollViewHome = findViewById(R.id.scrollViewHome);
 
-        tvGreetingUser = findViewById(R.id.tvGreetingUser);
-        if (tvGreetingUser != null && userName != null) {
-            tvGreetingUser.setText(userName.contains("✨") ? userName : userName + " ✨");
-        }
-
         layoutGreeting = findViewById(R.id.layoutGreeting);
         layoutSearchBar = findViewById(R.id.layoutSearchBar);
         scrollCategories = findViewById(R.id.scrollCategories);
@@ -173,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
     }
 
     private void resetCategoryButton(LinearLayout btn, boolean isActive) {
-        if (btn == null) return;
+        if (btn == null)
+            return;
         btn.setBackgroundResource(isActive ? R.drawable.bg_category_active : R.drawable.bg_category_inactive);
     }
 
@@ -190,23 +185,30 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                 ivNavSaved.setImageResource(R.drawable.ic_bookmark_star_filled);
                 ivNavSaved.setImageTintList(ColorStateList.valueOf(activeColor));
             }
-            if (tvNavSaved != null) tvNavSaved.setTextColor(activeColor);
+            if (tvNavSaved != null)
+                tvNavSaved.setTextColor(activeColor);
 
             // Unhighlight Home Tab
             if (ivNavHome != null) {
                 ivNavHome.setImageResource(R.drawable.ic_home);
                 ivNavHome.setImageTintList(ColorStateList.valueOf(inactiveColor));
             }
-            if (tvNavHome != null) tvNavHome.setTextColor(inactiveColor);
+            if (tvNavHome != null)
+                tvNavHome.setTextColor(inactiveColor);
 
             // Hide Home-only sections
-            if (layoutGreeting != null) layoutGreeting.setVisibility(View.GONE);
-            if (layoutSearchBar != null) layoutSearchBar.setVisibility(View.GONE);
-            if (scrollCategories != null) scrollCategories.setVisibility(View.GONE);
-            if (layoutSectionHeader != null) layoutSectionHeader.setVisibility(View.GONE);
+            if (layoutGreeting != null)
+                layoutGreeting.setVisibility(View.GONE);
+            if (layoutSearchBar != null)
+                layoutSearchBar.setVisibility(View.GONE);
+            if (scrollCategories != null)
+                scrollCategories.setVisibility(View.GONE);
+            if (layoutSectionHeader != null)
+                layoutSectionHeader.setVisibility(View.GONE);
 
             // Show dedicated Saved Header
-            if (layoutSavedHeader != null) layoutSavedHeader.setVisibility(View.VISIBLE);
+            if (layoutSavedHeader != null)
+                layoutSavedHeader.setVisibility(View.VISIBLE);
 
         } else {
             isSavedOnlyFilter = false;
@@ -216,23 +218,30 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                 ivNavHome.setImageResource(R.drawable.ic_home);
                 ivNavHome.setImageTintList(ColorStateList.valueOf(activeColor));
             }
-            if (tvNavHome != null) tvNavHome.setTextColor(activeColor);
+            if (tvNavHome != null)
+                tvNavHome.setTextColor(activeColor);
 
             // Unhighlight Saved Tab with outline star
             if (ivNavSaved != null) {
                 ivNavSaved.setImageResource(R.drawable.ic_bookmark_star);
                 ivNavSaved.setImageTintList(ColorStateList.valueOf(inactiveColor));
             }
-            if (tvNavSaved != null) tvNavSaved.setTextColor(inactiveColor);
+            if (tvNavSaved != null)
+                tvNavSaved.setTextColor(inactiveColor);
 
             // Restore Home sections
-            if (layoutGreeting != null) layoutGreeting.setVisibility(View.VISIBLE);
-            if (layoutSearchBar != null) layoutSearchBar.setVisibility(View.VISIBLE);
-            if (scrollCategories != null) scrollCategories.setVisibility(View.VISIBLE);
-            if (layoutSectionHeader != null) layoutSectionHeader.setVisibility(View.VISIBLE);
+            if (layoutGreeting != null)
+                layoutGreeting.setVisibility(View.VISIBLE);
+            if (layoutSearchBar != null)
+                layoutSearchBar.setVisibility(View.VISIBLE);
+            if (scrollCategories != null)
+                scrollCategories.setVisibility(View.VISIBLE);
+            if (layoutSectionHeader != null)
+                layoutSectionHeader.setVisibility(View.VISIBLE);
 
             // Hide Saved Header
-            if (layoutSavedHeader != null) layoutSavedHeader.setVisibility(View.GONE);
+            if (layoutSavedHeader != null)
+                layoutSavedHeader.setVisibility(View.GONE);
         }
 
         filterConferences();
@@ -252,7 +261,8 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
     }
 
     private void filterConferences() {
-        if (allConferences == null) return;
+        if (allConferences == null)
+            return;
 
         List<Conference> filtered = new ArrayList<>();
         int totalSaved = 0;
@@ -272,15 +282,19 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                 if ("All".equals(selectedCategory)) {
                     filtered.add(conf);
                 } else if ("AI & ML".equals(selectedCategory)) {
-                    if (conf.getDomainTag().contains("AI") || conf.getDomainTag().contains("Machine Learning") || conf.getFullName().contains("AI") || conf.getTopics().contains("AI")) {
+                    if (conf.getDomainTag().contains("AI") || conf.getDomainTag().contains("Machine Learning")
+                            || conf.getFullName().contains("AI") || conf.getTopics().contains("AI")) {
                         filtered.add(conf);
                     }
                 } else if ("Computer Science".equals(selectedCategory)) {
-                    if (conf.getDomainTag().contains("Computer") || conf.getDomainTag().contains("Systems") || conf.getFullName().contains("Computer") || conf.getFullName().contains("SIGCOMM") || conf.getTopics().contains("Computer")) {
+                    if (conf.getDomainTag().contains("Computer") || conf.getDomainTag().contains("Systems")
+                            || conf.getFullName().contains("Computer") || conf.getFullName().contains("SIGCOMM")
+                            || conf.getTopics().contains("Computer")) {
                         filtered.add(conf);
                     }
                 } else if ("Engineering".equals(selectedCategory)) {
-                    if (conf.getDomainTag().contains("Systems") || conf.getDomainTag().contains("Engineering") || conf.getDomainTag().contains("Networks") || conf.getTopics().contains("Robotics")) {
+                    if (conf.getDomainTag().contains("Systems") || conf.getDomainTag().contains("Engineering")
+                            || conf.getDomainTag().contains("Networks") || conf.getTopics().contains("Robotics")) {
                         filtered.add(conf);
                     }
                 }
@@ -292,20 +306,28 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                 if (filtered.isEmpty()) {
                     tvSavedHeaderSubtitle.setText("No conferences bookmarked yet");
                 } else {
-                    tvSavedHeaderSubtitle.setText(filtered.size() + (filtered.size() == 1 ? " saved conference • Track your submission milestones" : " saved conferences • Track your submission milestones"));
+                    tvSavedHeaderSubtitle.setText(filtered.size()
+                            + (filtered.size() == 1 ? " saved conference • Track your submission milestones"
+                                    : " saved conferences • Track your submission milestones"));
                 }
             }
 
             if (filtered.isEmpty()) {
-                if (rvConferences != null) rvConferences.setVisibility(View.GONE);
-                if (layoutEmptySaved != null) layoutEmptySaved.setVisibility(View.VISIBLE);
+                if (rvConferences != null)
+                    rvConferences.setVisibility(View.GONE);
+                if (layoutEmptySaved != null)
+                    layoutEmptySaved.setVisibility(View.VISIBLE);
             } else {
-                if (rvConferences != null) rvConferences.setVisibility(View.VISIBLE);
-                if (layoutEmptySaved != null) layoutEmptySaved.setVisibility(View.GONE);
+                if (rvConferences != null)
+                    rvConferences.setVisibility(View.VISIBLE);
+                if (layoutEmptySaved != null)
+                    layoutEmptySaved.setVisibility(View.GONE);
             }
         } else {
-            if (rvConferences != null) rvConferences.setVisibility(View.VISIBLE);
-            if (layoutEmptySaved != null) layoutEmptySaved.setVisibility(View.GONE);
+            if (rvConferences != null)
+                rvConferences.setVisibility(View.VISIBLE);
+            if (layoutEmptySaved != null)
+                layoutEmptySaved.setVisibility(View.GONE);
         }
 
         if (adapter != null) {

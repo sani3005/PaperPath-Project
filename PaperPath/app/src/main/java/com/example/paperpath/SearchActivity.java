@@ -24,7 +24,6 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
     private TextView tabAll;
     private TextView tabUpcoming;
     private TextView tabOngoing;
-    private TextView tabPast;
     private RecyclerView rvSearchResults;
     private SearchConferenceAdapter adapter;
     private List<Conference> searchList;
@@ -48,7 +47,6 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
         tabAll = findViewById(R.id.tabAll);
         tabUpcoming = findViewById(R.id.tabUpcoming);
         tabOngoing = findViewById(R.id.tabOngoing);
-        tabPast = findViewById(R.id.tabPast);
         rvSearchResults = findViewById(R.id.rvSearchResults);
     }
 
@@ -69,7 +67,6 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
         tabAll.setOnClickListener(v -> selectTab("All"));
         tabUpcoming.setOnClickListener(v -> selectTab("Upcoming"));
         tabOngoing.setOnClickListener(v -> selectTab("Ongoing"));
-        tabPast.setOnClickListener(v -> selectTab("Past"));
     }
 
     private void selectTab(String tab) {
@@ -77,12 +74,12 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
         updateTabButton(tabAll, "All".equals(tab));
         updateTabButton(tabUpcoming, "Upcoming".equals(tab));
         updateTabButton(tabOngoing, "Ongoing".equals(tab));
-        updateTabButton(tabPast, "Past".equals(tab));
         filterResults();
     }
 
     private void updateTabButton(TextView tabView, boolean isActive) {
-        if (tabView == null) return;
+        if (tabView == null)
+            return;
         tabView.setBackgroundResource(isActive ? R.drawable.bg_tab_pill_active : R.drawable.bg_tab_pill_inactive);
         tabView.setTextColor(getResources().getColor(isActive ? R.color.text_white : R.color.text_secondary, null));
     }
@@ -94,7 +91,8 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
 
         etSearchQuery.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -102,7 +100,8 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         findViewById(R.id.btnFloatingFilter).setOnClickListener(v -> {
