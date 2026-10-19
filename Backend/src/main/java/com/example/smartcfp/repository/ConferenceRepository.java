@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface ConferenceRepository
         extends JpaRepository<Conference, Long> {
 
+    List<Conference> findAllByOrderByIdDesc();
+
     // Find a conference using its website URL.
     Optional<Conference> findByWebsite(String website);
 
@@ -28,6 +30,7 @@ public interface ConferenceRepository
               LIKE LOWER(CONCAT('%', :keyword, '%'))
            OR LOWER(COALESCE(c.sourceName, ''))
               LIKE LOWER(CONCAT('%', :keyword, '%'))
+        ORDER BY c.id DESC
         """)
     List<Conference> searchConferences(
             @Param("keyword") String keyword);

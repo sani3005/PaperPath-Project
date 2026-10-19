@@ -39,9 +39,9 @@ class ConferencePersistenceTest {
 
         verify(repository).save(conference);
 
-        when(repository.findAll()).thenReturn(List.of(conference));
+        when(repository.findAllByOrderByIdDesc()).thenReturn(List.of(conference));
         ConferenceService conferenceService = new ConferenceService(repository);
         assertEquals(List.of(conference), conferenceService.getAllConferences());
-        verify(repository).findAll();
+        verify(repository).findAllByOrderByIdDesc();
     }
 }

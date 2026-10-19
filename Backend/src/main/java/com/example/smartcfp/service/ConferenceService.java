@@ -15,13 +15,15 @@ public class ConferenceService {
     }
 
     public List<Conference> getAllConferences() {
-        return repository.findAll();
+        return repository.findAllByOrderByIdDesc();
     }
 
     public List<Conference> searchConferences(String keyword) {
-        return repository.searchConferences(keyword);
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllConferences();
+        }
+        return repository.searchConferences(keyword.trim());
     }
 }
-
 
 
