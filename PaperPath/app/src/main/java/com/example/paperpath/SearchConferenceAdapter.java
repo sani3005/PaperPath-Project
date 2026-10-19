@@ -75,7 +75,7 @@ public class SearchConferenceAdapter extends RecyclerView.Adapter<SearchConferen
 
         public void bind(Conference conf, OnItemClickListener listener) {
             tvLogoAcronym.setText(conf.getAcronym());
-            tvSearchItemTitle.setText(conf.getAcronym() + " 2026");
+            tvSearchItemTitle.setText(conf.getFullName());
             tvSearchDates.setText(conf.getConfDates());
             tvSearchVenue.setText(conf.getVenue());
 

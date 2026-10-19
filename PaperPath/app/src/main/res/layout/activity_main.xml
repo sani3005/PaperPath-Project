@@ -351,6 +351,16 @@
                 tools:itemCount="2"
                 tools:listitem="@layout/item_conference_card" />
 
+            <TextView
+                android:id="@+id/tvNoConferences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="24dp"
+                android:text="No conferences found. Import scraped conferences from the backend and try again."
+                android:textColor="@color/text_muted"
+                android:visibility="gone" />
+
             <!-- Empty State for Saved Conferences -->
             <LinearLayout
                 android:id="@+id/layoutEmptySaved"

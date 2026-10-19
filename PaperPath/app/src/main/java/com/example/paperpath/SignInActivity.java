@@ -15,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignInActivity extends AppCompatActivity {
 
     private EditText etEmail;
@@ -95,7 +99,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void handleSignIn() {
         String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+        String password = etPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
             etEmail.setError(getString(R.string.err_empty_email));
@@ -109,10 +113,50 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this, getString(R.string.success_sign_in), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-        intent.putExtra("USER_EMAIL", email);
-        startActivity(intent);
-        finish();
+        btnSignIn.setEnabled(false);
+        RetrofitClient.getApiService()
+                .login(new LoginReq(email, password))
+                .enqueue(new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(
+                            Call<AuthResponse> call,
+                            Response<AuthResponse> response) {
+                        btnSignIn.setEnabled(true);
+                        if (response.isSuccessful() && response.body() != null) {
+                            Toast.makeText(
+                                    SignInActivity.this,
+                                    response.body().getMessage(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                            Intent intent = new Intent(
+                                    SignInActivity.this,
+                                    MainActivity.class
+                            );
+                            intent.putExtra("USER_EMAIL", email);
+                            startActivity(intent);
+                            finish();
+                            return;
+                        }
+
+                        String message = response.code() == 401
+                                ? "Invalid email or password"
+                                : "Login failed (HTTP " + response.code() + ")";
+                        Toast.makeText(
+                                SignInActivity.this,
+                                message,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable error) {
+                        btnSignIn.setEnabled(true);
+                        Toast.makeText(
+                                SignInActivity.this,
+                                "Cannot reach the server. Check that the backend is running.",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
     }
 }

@@ -16,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private ImageView btnBack;
@@ -108,8 +112,8 @@ public class SignUpActivity extends AppCompatActivity {
     private void handleSignUp() {
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        String confirmPassword = etConfirmPassword.getText().toString().trim();
+        String password = etPassword.getText().toString();
+        String confirmPassword = etConfirmPassword.getText().toString();
 
         if (TextUtils.isEmpty(name)) {
             etName.setError(getString(R.string.err_empty_name));
@@ -123,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(password) || password.length() < 6) {
+        if (TextUtils.isEmpty(password) || password.length() < 8) {
             etPassword.setError(getString(R.string.err_short_password));
             etPassword.requestFocus();
             return;
@@ -135,11 +139,51 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this, getString(R.string.success_sign_up), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-        intent.putExtra("USER_NAME", name);
-        intent.putExtra("USER_EMAIL", email);
-        startActivity(intent);
-        finish();
+        btnSignUp.setEnabled(false);
+        RetrofitClient.getApiService()
+                .signup(new SignupReq(name, email, password))
+                .enqueue(new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(
+                            Call<AuthResponse> call,
+                            Response<AuthResponse> response) {
+                        btnSignUp.setEnabled(true);
+                        if (response.isSuccessful() && response.body() != null) {
+                            Toast.makeText(
+                                    SignUpActivity.this,
+                                    response.body().getMessage(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                            Intent intent = new Intent(
+                                    SignUpActivity.this,
+                                    MainActivity.class
+                            );
+                            intent.putExtra("USER_NAME", name);
+                            intent.putExtra("USER_EMAIL", email);
+                            startActivity(intent);
+                            finish();
+                            return;
+                        }
+
+                        String message = response.code() == 400
+                                ? "Email is already registered or the details are invalid"
+                                : "Sign up failed (HTTP " + response.code() + ")";
+                        Toast.makeText(
+                                SignUpActivity.this,
+                                message,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable error) {
+                        btnSignUp.setEnabled(true);
+                        Toast.makeText(
+                                SignUpActivity.this,
+                                "Cannot reach the server. Check that the backend is running.",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
     }
 }

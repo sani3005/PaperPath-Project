@@ -93,7 +93,7 @@
     <string name="err_empty_email">Please enter your email address</string>
     <string name="err_invalid_email">Please enter a valid email address</string>
     <string name="err_empty_password">Please enter your password</string>
-    <string name="err_short_password">Password must be at least 6 characters</string>
+    <string name="err_short_password">Password must be at least 8 characters</string>
     <string name="err_password_mismatch">Passwords do not match</string>
     <string name="success_sign_in">Signed in successfully!</string>
     <string name="success_sign_up">Account created successfully!</string>

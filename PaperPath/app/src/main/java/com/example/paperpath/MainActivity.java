@@ -18,7 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements ConferenceAdapter.OnConferenceClickListener {
+
+    private static final int HOME_CONFERENCE_LIMIT = 20;
 
     private NestedScrollView scrollViewHome;
     private View layoutGreeting;
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
     private View layoutSavedHeader;
     private TextView tvSavedHeaderSubtitle;
     private RecyclerView rvConferences;
+    private TextView tvNoConferences;
     private View layoutEmptySaved;
     private View btnExploreConferences;
     private ConferenceAdapter adapter;
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
         tvSavedHeaderSubtitle = findViewById(R.id.tvSavedHeaderSubtitle);
 
         rvConferences = findViewById(R.id.rvConferences);
+        tvNoConferences = findViewById(R.id.tvNoConferences);
         layoutEmptySaved = findViewById(R.id.layoutEmptySaved);
         btnExploreConferences = findViewById(R.id.btnExploreConferences);
 
@@ -129,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
 
     private void setupRecyclerView() {
         rvConferences.setLayoutManager(new LinearLayoutManager(this));
-        allConferences = ConferenceRepository.getAllConferences();
+        allConferences = new ArrayList<>();
         adapter = new ConferenceAdapter(allConferences, this);
         adapter.setOnBookmarkToggleListener((conference, isBookmarked) -> {
             if (isSavedOnlyFilter) {
@@ -137,6 +145,37 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
             }
         });
         rvConferences.setAdapter(adapter);
+        loadConferences();
+    }
+
+
+    private void loadConferences() {
+        RetrofitClient.getApiService().getConferences().enqueue(new Callback<List<Conference>>() {
+            @Override
+            public void onResponse(Call<List<Conference>> call, Response<List<Conference>> response) {
+                if (isFinishing() || isDestroyed()) return;
+                if (!response.isSuccessful() || response.body() == null) {
+                    android.widget.Toast.makeText(
+                            MainActivity.this,
+                            "Could not load conferences (HTTP " + response.code() + ")",
+                            android.widget.Toast.LENGTH_LONG
+                    ).show();
+                    return;
+                }
+                allConferences = response.body();
+                filterConferences();
+            }
+
+            @Override
+            public void onFailure(Call<List<Conference>> call, Throwable error) {
+                if (isFinishing() || isDestroyed()) return;
+                android.widget.Toast.makeText(
+                        MainActivity.this,
+                        "Cannot reach the conference server. Check that the backend is running.",
+                        android.widget.Toast.LENGTH_LONG
+                ).show();
+            }
+        });
     }
 
     private void setupCategories() {
@@ -302,6 +341,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
         }
 
         if (isSavedOnlyFilter) {
+            if (tvNoConferences != null) tvNoConferences.setVisibility(View.GONE);
             if (tvSavedHeaderSubtitle != null) {
                 if (filtered.isEmpty()) {
                     tvSavedHeaderSubtitle.setText("No conferences bookmarked yet");
@@ -324,14 +364,22 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                     layoutEmptySaved.setVisibility(View.GONE);
             }
         } else {
-            if (rvConferences != null)
-                rvConferences.setVisibility(View.VISIBLE);
-            if (layoutEmptySaved != null)
-                layoutEmptySaved.setVisibility(View.GONE);
+            if (rvConferences != null) rvConferences.setVisibility(View.VISIBLE);
+            if (layoutEmptySaved != null) layoutEmptySaved.setVisibility(View.GONE);
+            if (tvNoConferences != null) {
+                tvNoConferences.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
+                tvNoConferences.setText(allConferences.isEmpty()
+                        ? "No conferences found. Import scraped conferences from the backend and try again."
+                        : "No conferences match this category.");
+            }
         }
 
         if (adapter != null) {
-            adapter.setConferences(filtered);
+            List<Conference> displayed = filtered;
+            if (!isSavedOnlyFilter && filtered.size() > HOME_CONFERENCE_LIMIT) {
+                displayed = filtered.subList(0, HOME_CONFERENCE_LIMIT);
+            }
+            adapter.setConferences(displayed);
         }
     }
 
