@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.graphics:graphics-shapes-android:1.0.1@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/9.2.1/transforms/ee78d63e3c6c395618ed4d9a8cf7b0de/workspace/transformed/graphics-shapes-release/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/9.2.1/transforms/ee78d63e3c6c395618ed4d9a8cf7b0de/workspace/transformed/graphics-shapes-release/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/9.2.1/transforms/ee78d63e3c6c395618ed4d9a8cf7b0de/workspace/transformed/graphics-shapes-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/9.6.0/transforms/37338350f83dc69441664e8e8059c742/transformed/graphics-shapes-release/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/9.6.0/transforms/37338350f83dc69441664e8e8059c742/transformed/graphics-shapes-release/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/9.6.0/transforms/37338350f83dc69441664e8e8059c742/transformed/graphics-shapes-release/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
