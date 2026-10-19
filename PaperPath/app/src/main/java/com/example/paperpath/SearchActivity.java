@@ -2,6 +2,8 @@ package com.example.paperpath;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -16,6 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SearchActivity extends AppCompatActivity implements SearchConferenceAdapter.OnItemClickListener {
 
     private ImageView btnSearchBack;
@@ -26,9 +32,13 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
     private TextView tabOngoing;
     private TextView tabPast;
     private RecyclerView rvSearchResults;
+    private TextView tvSearchEmpty;
     private SearchConferenceAdapter adapter;
-    private List<Conference> searchList;
+    private List<Conference> searchList = new ArrayList<>();
     private String selectedTab = "All";
+    private final Handler searchHandler = new Handler(Looper.getMainLooper());
+    private Runnable pendingSearch;
+    private int searchRequestId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,7 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
         setupList();
         setupTabs();
         setupListeners();
+        loadConferences("");
     }
 
     private void initViews() {
@@ -50,17 +61,11 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
         tabOngoing = findViewById(R.id.tabOngoing);
         tabPast = findViewById(R.id.tabPast);
         rvSearchResults = findViewById(R.id.rvSearchResults);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        filterResults();
+        tvSearchEmpty = findViewById(R.id.tvSearchEmpty);
     }
 
     private void setupList() {
         rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
-        searchList = ConferenceRepository.getAllConferences();
         adapter = new SearchConferenceAdapter(searchList, this);
         rvSearchResults.setAdapter(adapter);
     }
@@ -89,44 +94,79 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
 
     private void setupListeners() {
         btnSearchBack.setOnClickListener(v -> finish());
-
         btnClearSearch.setOnClickListener(v -> etSearchQuery.setText(""));
 
         etSearchQuery.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                scheduleSearch(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        findViewById(R.id.btnFloatingFilter).setOnClickListener(v ->
+                Toast.makeText(this, "Showing " + adapter.getItemCount() + " conferences", Toast.LENGTH_SHORT).show());
+    }
+
+    private void scheduleSearch(String query) {
+        if (pendingSearch != null) searchHandler.removeCallbacks(pendingSearch);
+        pendingSearch = () -> loadConferences(query.trim());
+        searchHandler.postDelayed(pendingSearch, 300);
+    }
+
+    private void loadConferences(String query) {
+        int requestId = ++searchRequestId;
+        Call<List<Conference>> request = query.isEmpty()
+                ? RetrofitClient.getApiService().getConferences()
+                : RetrofitClient.getApiService().searchConferences(query);
+        request.enqueue(new Callback<List<Conference>>() {
+            @Override
+            public void onResponse(Call<List<Conference>> call, Response<List<Conference>> response) {
+                if (requestId != searchRequestId || isFinishing() || isDestroyed()) return;
+                if (!response.isSuccessful() || response.body() == null) {
+                    searchList = new ArrayList<>();
+                    filterResults();
+                    Toast.makeText(
+                            SearchActivity.this,
+                            "Search failed (HTTP " + response.code() + ")",
+                            Toast.LENGTH_LONG
+                    ).show();
+                    return;
+                }
+                searchList = response.body();
                 filterResults();
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        findViewById(R.id.btnFloatingFilter).setOnClickListener(v -> {
-            Toast.makeText(this, "Filters: Showing " + adapter.getItemCount() + " results", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<Conference>> call, Throwable error) {
+                if (requestId != searchRequestId || isFinishing() || isDestroyed()) return;
+                searchList = new ArrayList<>();
+                filterResults();
+                Toast.makeText(
+                        SearchActivity.this,
+                        "Cannot reach the conference server. Check that the backend is running.",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
         });
     }
 
     private void filterResults() {
-        String query = etSearchQuery.getText().toString().trim().toLowerCase();
         List<Conference> filtered = new ArrayList<>();
-
-        for (Conference conf : searchList) {
-            boolean matchesTab = "All".equals(selectedTab) || conf.getStatus().equalsIgnoreCase(selectedTab);
-            boolean matchesQuery = query.isEmpty() ||
-                    conf.getAcronym().toLowerCase().contains(query) ||
-                    conf.getFullName().toLowerCase().contains(query) ||
-                    conf.getTopics().toLowerCase().contains(query) ||
-                    conf.getVenue().toLowerCase().contains(query);
-
-            if (matchesTab && matchesQuery) {
-                filtered.add(conf);
+        for (Conference conference : searchList) {
+            if ("All".equals(selectedTab) || conference.getStatus().equalsIgnoreCase(selectedTab)) {
+                filtered.add(conference);
             }
         }
         adapter.updateList(filtered);
+        tvSearchEmpty.setVisibility(filtered.isEmpty() ? android.view.View.VISIBLE : android.view.View.GONE);
     }
 
     @Override
@@ -134,5 +174,11 @@ public class SearchActivity extends AppCompatActivity implements SearchConferenc
         Intent intent = new Intent(SearchActivity.this, ConferenceDetailActivity.class);
         intent.putExtra(ConferenceDetailActivity.EXTRA_CONFERENCE, conference);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        searchHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 }

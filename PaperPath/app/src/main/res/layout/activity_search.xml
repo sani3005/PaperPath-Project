@@ -49,7 +49,6 @@
                 android:hint="@string/search_conferences_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:text="machine learning"
                 android:textColor="@color/text_white"
                 android:textColorHint="@color/text_hint"
                 android:textSize="14sp" />
@@ -162,6 +161,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutSearchHeader"
         tools:listitem="@layout/item_search_conference" />
+
+    <TextView
+        android:id="@+id/tvSearchEmpty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="No matching conferences found."
+        android:textColor="@color/text_muted"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvSearchResults"
+        app:layout_constraintEnd_toEndOf="@id/rvSearchResults"
+        app:layout_constraintStart_toStartOf="@id/rvSearchResults"
+        app:layout_constraintTop_toTopOf="@id/rvSearchResults" />
 
     <!-- Floating Filter Bottom Pill Button -->
     <LinearLayout
