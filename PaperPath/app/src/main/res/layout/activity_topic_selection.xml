@@ -70,16 +70,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/topic_selection_hint"
                 android:textColor="@color/dark_blue_primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <!-- Card Containing Chip Group -->
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 1: Computer Science                  -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_cs"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 app:cardBackgroundColor="@color/bg_card"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
@@ -95,7 +107,6 @@
                     app:chipSpacingVertical="10dp"
                     app:singleSelection="false">
 
-                    <!-- Domain 1: AI -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAi"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -109,7 +120,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 2: Computer Vision -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipCv"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -123,7 +133,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 3: NLP -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipNlp"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -137,7 +146,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 4: Machine Learning -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipMl"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -151,7 +159,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 5: Distributed Systems -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipSystems"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -165,7 +172,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 6: Cloud Computing -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipCloud"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -179,7 +185,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 7: Cybersecurity -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipSecurity"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -193,7 +198,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 8: IoT -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipIot"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -207,7 +211,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 9: HCI -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipHci"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -221,7 +224,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 10: Software Engineering -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipSe"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -235,7 +237,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 11: Robotics -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipRobotics"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -249,7 +250,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 12: Data Science -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipData"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -263,7 +263,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 13: Networking -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipNetworks"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -277,7 +276,6 @@
                         app:chipStrokeColor="@color/chip_stroke"
                         app:chipStrokeWidth="1.5dp" />
 
-                    <!-- Domain 14: Quantum Computing -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipQuantum"
                         style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -294,6 +292,516 @@
                 </com.google.android.material.chip.ChipGroup>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 2: Geography & Earth Sciences        -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_geography"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupGeography"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipGis"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_gis"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEnvSci"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_env_sci"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipClimate"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_climate"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 3: Chemistry                         -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_chemistry"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupChemistry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipChemistry"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_chemistry"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipBiochem"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_biochem"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 4: Zoology & Animal Sciences         -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_zoology"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupZoology"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipZoology"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_zoology"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipEcology"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_ecology"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 5: Physics                           -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_physics"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupPhysics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipPhysics"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_physics"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAstrophysics"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_astrophysics"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 6: Mathematics & Statistics          -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_maths"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupMaths"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMaths"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_maths"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipStats"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_stats"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 7: Humanities & Social Sciences      -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_humanities"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupHumanities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipHumanities"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_humanities"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLinguistics"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_linguistics"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- GROUP 8: Life Sciences                     -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/group_life_sciences"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/stroke_light"
+                app:strokeWidth="1dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupLifeSci"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="10dp"
+                    app:singleSelection="false">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLifeSci"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_life_sci"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipBioinformatics"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domain_bioinformatics"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipCornerRadius="14dp"
+                        app:chipStrokeColor="@color/chip_stroke"
+                        app:chipStrokeWidth="1.5dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ══════════════════════════════════════════ -->
+            <!-- CUSTOM SUBJECT SECTION                     -->
+            <!-- ══════════════════════════════════════════ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/label_custom_subjects"
+                android:textColor="@color/dark_blue_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/label_custom_subjects_hint"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+
+            <!-- Input Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    app:boxStrokeColor="@color/chip_stroke"
+                    app:hintTextColor="@color/text_secondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCustomSubject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_custom_subject"
+                        android:inputType="textCapWords"
+                        android:textColor="@color/dark_blue_primary"
+                        android:textSize="14sp"
+                        android:imeOptions="actionDone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddSubject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:text="@string/btn_add_subject"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/dark_blue_primary"
+                    app:cornerRadius="14dp" />
+
+            </LinearLayout>
+
+            <!-- Custom Chips display area -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:chipSpacingHorizontal="8dp"
+                app:chipSpacingVertical="8dp"
+                app:singleSelection="false" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -302,7 +810,7 @@
         android:id="@+id/bottomButtonContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/chip_stroke"
         android:elevation="8dp"
         android:paddingHorizontal="24dp"
         android:paddingVertical="16dp"

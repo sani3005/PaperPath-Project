@@ -124,4 +124,52 @@
     <string name="domain_data">Data Science &amp; Big Data</string>
     <string name="domain_networks">Networking &amp; Wireless Systems</string>
     <string name="domain_quantum">Quantum Computing</string>
+
+    <!-- Domain Group Headers -->
+    <string name="group_cs">💻 Computer Science</string>
+    <string name="group_geography">🌍 Geography &amp; Earth Sciences</string>
+    <string name="group_chemistry">🧪 Chemistry</string>
+    <string name="group_zoology">🦁 Zoology &amp; Animal Sciences</string>
+    <string name="group_physics">⚛️ Physics</string>
+    <string name="group_maths">➗ Mathematics &amp; Statistics</string>
+    <string name="group_humanities">📚 Humanities &amp; Social Sciences</string>
+    <string name="group_life_sciences">🌿 Life Sciences</string>
+
+    <!-- Geography Domains -->
+    <string name="domain_gis">GIS &amp; Remote Sensing</string>
+    <string name="domain_env_sci">Environmental Science</string>
+    <string name="domain_climate">Climate Studies</string>
+
+    <!-- Chemistry Domains -->
+    <string name="domain_chemistry">Chemistry</string>
+    <string name="domain_biochem">Biochemistry &amp; Molecular Biology</string>
+
+    <!-- Zoology Domains -->
+    <string name="domain_zoology">Zoology</string>
+    <string name="domain_ecology">Ecology &amp; Conservation</string>
+
+    <!-- Physics Domains -->
+    <string name="domain_physics">Physics</string>
+    <string name="domain_astrophysics">Astrophysics &amp; Space Science</string>
+
+    <!-- Mathematics Domains -->
+    <string name="domain_maths">Mathematics</string>
+    <string name="domain_stats">Statistics &amp; Probability</string>
+
+    <!-- Humanities Domains -->
+    <string name="domain_humanities">Humanities</string>
+    <string name="domain_linguistics">Linguistics &amp; Cognitive Science</string>
+
+    <!-- Life Sciences Domains -->
+    <string name="domain_life_sci">Life Sciences &amp; Biotechnology</string>
+    <string name="domain_bioinformatics">Bioinformatics</string>
+
+    <!-- Custom Subject UI -->
+    <string name="hint_custom_subject">Enter your subject…</string>
+    <string name="btn_add_subject">+ Add</string>
+    <string name="label_custom_subjects">➕ Add a Custom Subject</string>
+    <string name="label_custom_subjects_hint">Can\'t find your field? Add it here.</string>
+
+    <!-- Personalized Feed -->
+    <string name="your_feed_label">✦ Your Personalized Feed</string>
 </resources>
