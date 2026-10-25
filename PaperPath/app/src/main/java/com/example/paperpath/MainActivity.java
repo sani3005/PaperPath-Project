@@ -1,7 +1,10 @@
 package com.example.paperpath;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -75,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
         if (getIntent().hasExtra("USER_EMAIL")) {
             userEmail = getIntent().getStringExtra("USER_EMAIL");
         }
+        if (userEmail == null || userEmail.trim().isEmpty()) {
+            Intent signInIntent = new Intent(this, SignInActivity.class);
+            signInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(signInIntent);
+            finish();
+            return;
+        }
+        userEmail = userEmail.trim();
+        ConferenceNotificationScheduler.schedule(this, userEmail);
+        requestNotificationPermissionIfNeeded();
 
         initViews();
         setupCategories();
@@ -99,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
     protected void onResume() {
         super.onResume();
         syncBookmarksAndFilter();
+        loadConferences();
     }
 
     private void initViews() {
@@ -145,14 +159,46 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
             }
         });
         rvConferences.setAdapter(adapter);
-        loadConferences();
     }
 
-
     private void loadConferences() {
+        RetrofitClient.getApiService().getRecommendedConferences(userEmail)
+                .enqueue(new Callback<List<Conference>>() {
+                    @Override
+                    public void onResponse(
+                            Call<List<Conference>> call,
+                            Response<List<Conference>> response
+                    ) {
+                        if (isFinishing() || isDestroyed()) return;
+                        if (response.isSuccessful() && response.body() != null
+                                && !response.body().isEmpty()) {
+                            displayConferences(response.body());
+                            return;
+                        }
+
+                        String reason = response.isSuccessful()
+                                ? "No conferences match your saved interests. Showing all conferences."
+                                : "Personalized recommendations are unavailable (HTTP "
+                                        + response.code() + "). Showing all conferences.";
+                        loadAllConferences(reason);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Conference>> call, Throwable error) {
+                        if (isFinishing() || isDestroyed()) return;
+                        loadAllConferences(
+                                "Personalized recommendations are unavailable. Showing all conferences.");
+                    }
+                });
+    }
+
+    private void loadAllConferences(String fallbackMessage) {
         RetrofitClient.getApiService().getConferences().enqueue(new Callback<List<Conference>>() {
             @Override
-            public void onResponse(Call<List<Conference>> call, Response<List<Conference>> response) {
+            public void onResponse(
+                    Call<List<Conference>> call,
+                    Response<List<Conference>> response
+            ) {
                 if (isFinishing() || isDestroyed()) return;
                 if (!response.isSuccessful() || response.body() == null) {
                     android.widget.Toast.makeText(
@@ -162,8 +208,15 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                     ).show();
                     return;
                 }
-                allConferences = response.body();
-                filterConferences();
+
+                displayConferences(response.body());
+                if (!response.body().isEmpty()) {
+                    android.widget.Toast.makeText(
+                            MainActivity.this,
+                            fallbackMessage,
+                            android.widget.Toast.LENGTH_LONG
+                    ).show();
+                }
             }
 
             @Override
@@ -176,6 +229,11 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                 ).show();
             }
         });
+    }
+
+    private void displayConferences(List<Conference> conferences) {
+        allConferences = conferences;
+        filterConferences();
     }
 
     private void setupCategories() {
@@ -389,6 +447,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
         if (btnTopNotifications != null) {
             btnTopNotifications.setOnClickListener(v -> {
                 Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+                intent.putExtra("USER_EMAIL", userEmail);
                 startActivity(intent);
             });
         }
@@ -430,6 +489,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
 
         navTabNotifications.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+            intent.putExtra("USER_EMAIL", userEmail);
             startActivity(intent);
         });
 
@@ -439,6 +499,18 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
             intent.putExtra("USER_EMAIL", userEmail);
             startActivity(intent);
         });
+    }
+
+    private void requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && ContextCompat.checkSelfPermission(
+                        this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                    1001
+            );
+        }
     }
 
     @Override

@@ -127,9 +127,13 @@ public class Ieee implements ConferenceSource {
                 title,
                 title,
                 location,
-                eventDate,
+                null,
                 website,
-                getSourceName()
+                getSourceName(),
+                null,
+                null,
+                eventDate,
+                null
         );
     }
 

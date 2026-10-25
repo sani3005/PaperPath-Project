@@ -159,84 +159,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
-            <!-- OR Divider -->
-            <LinearLayout
-                android:id="@+id/layoutOrDivider"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/stroke_divider" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/or_divider"
-                    android:textColor="@color/text_muted"
-                    android:textSize="13sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:background="@color/stroke_divider" />
-            </LinearLayout>
-
-            <!-- Continue with Google Button -->
-            <LinearLayout
-                android:id="@+id/btnGoogleSignIn"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_btn_google"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutOrDivider">
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:contentDescription="@string/cd_google"
-                    android:src="@drawable/ic_google_logo" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/continue_with_google"
-                    android:textColor="@color/text_white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
             <!-- Bottom Navigation Prompt: Don't have an account? Sign Up -->
             <LinearLayout
                 android:id="@+id/layoutSignUpPrompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnGoogleSignIn"
+                app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
                 app:layout_constraintVertical_bias="1.0">
 
                 <TextView

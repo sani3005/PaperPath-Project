@@ -28,33 +28,20 @@
             android:paddingBottom="24dp">
 
             <!-- Logo Header -->
-            <FrameLayout
-                android:id="@+id/logoContainer"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/bg_circle_logo"
-                android:elevation="3dp">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/cd_logo"
-                    android:src="@drawable/ic_smartcfp_logo" />
-            </FrameLayout>
 
             <!-- Screen Title -->
+
+            <!-- Subtitle -->
             <TextView
                 android:id="@+id/tvTopicTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/topic_selection_title"
-                android:textColor="@color/dark_blue_primary"
+                android:textColor="@color/text_secondary"
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
-            <!-- Subtitle -->
             <TextView
                 android:id="@+id/tvTopicSubtitle"
                 android:layout_width="match_parent"
@@ -72,7 +59,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/topic_selection_hint"
-                android:textColor="@color/dark_blue_primary"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

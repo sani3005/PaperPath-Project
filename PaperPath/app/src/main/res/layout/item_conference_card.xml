@@ -116,6 +116,19 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tvConfDeadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Submission deadline: Not available"
+            android:textColor="@color/accent_red"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvConfTitle"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMetaRow" />
+
         <!-- Tag Pills Row -->
         <LinearLayout
             android:id="@+id/layoutTags"
@@ -125,7 +138,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvConfTitle"
-            app:layout_constraintTop_toBottomOf="@+id/layoutMetaRow">
+            app:layout_constraintTop_toBottomOf="@+id/tvConfDeadline">
 
             <TextView
                 android:id="@+id/tvTag1"

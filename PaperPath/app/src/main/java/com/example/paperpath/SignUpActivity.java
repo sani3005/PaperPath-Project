@@ -1,6 +1,8 @@
 package com.example.paperpath;
 
 import android.content.Intent;
+import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -35,10 +40,20 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean isPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
+    private String pendingWelcomeName;
+    private String pendingWelcomeEmail;
+    private ActivityResultLauncher<String> notificationPermissionLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        notificationPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                granted -> {
+                    showWelcomeNotification();
+                    openTopicSelection();
+                }
+        );
         setContentView(R.layout.activity_sign_up);
 
         initViews();
@@ -154,14 +169,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     response.body().getMessage(),
                                     Toast.LENGTH_SHORT
                             ).show();
-                            Intent intent = new Intent(
-                                    SignUpActivity.this,
-                                    MainActivity.class
-                            );
-                            intent.putExtra("USER_NAME", name);
-                            intent.putExtra("USER_EMAIL", email);
-                            startActivity(intent);
-                            finish();
+                            completeSignup(name, email);
                             return;
                         }
 
@@ -184,6 +192,49 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG
                         ).show();
                     }
+
                 });
+    }
+
+    private void completeSignup(String name, String email) {
+        pendingWelcomeName = name;
+        pendingWelcomeEmail = email;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && ContextCompat.checkSelfPermission(
+                        this, Manifest.permission.POST_NOTIFICATIONS)
+                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            return;
+        }
+        showWelcomeNotification();
+        openTopicSelection();
+    }
+
+    private void showWelcomeNotification() {
+        if (pendingWelcomeName == null || pendingWelcomeEmail == null) {
+            return;
+        }
+        String firstName = pendingWelcomeName.trim().split("\\s+")[0];
+        Intent intent = new Intent(this, TopicSelectionActivity.class);
+        intent.putExtra("USER_NAME", pendingWelcomeName);
+        intent.putExtra("USER_EMAIL", pendingWelcomeEmail);
+        intent.putExtra("IS_EDITING_TOPICS", false);
+        AppNotificationHelper.show(
+                this,
+                pendingWelcomeEmail.hashCode(),
+                "Welcome to SmartCFP, " + firstName + "!",
+                "Your account is ready. Choose your research interests to discover relevant conferences.",
+                intent
+        );
+    }
+
+    private void openTopicSelection() {
+        Intent intent = new Intent(this, TopicSelectionActivity.class);
+        intent.putExtra("USER_NAME", pendingWelcomeName);
+        intent.putExtra("USER_EMAIL", pendingWelcomeEmail);
+        intent.putExtra("IS_EDITING_TOPICS", false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

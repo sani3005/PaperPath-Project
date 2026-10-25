@@ -20,6 +20,10 @@ public class Conference implements Serializable {
     private String confDates;
     @SerializedName("deadline")
     private String submissionDeadline;
+    @SerializedName("eventDates")
+    private String eventDates;
+    @SerializedName("description")
+    private String description;
     private int daysLeft;
     private String notificationDate;
     private String cameraReadyDate;
@@ -30,6 +34,7 @@ public class Conference implements Serializable {
     private String status;
     private String[] tags;
     private boolean isBookmarked;
+    private String registrationUrl;
 
     public Conference() {
     }
@@ -74,20 +79,24 @@ public class Conference implements Serializable {
     public String getCoreRank() { return valueOr(coreRank, "Rank not listed"); }
     public String getVenue() { return valueOr(venue, "Location not listed"); }
     public String getConfDates() {
+        if (hasText(eventDates)) return eventDates;
         if (hasText(confDates)) return confDates;
-        if (!hasText(submissionDeadline)) return "Date not listed";
-        String label = "IEEE".equalsIgnoreCase(sourceName) ? "Conference dates: " : "Submission deadline: ";
-        return label + submissionDeadline;
+        if ("IEEE".equalsIgnoreCase(sourceName) && hasText(submissionDeadline)) {
+            return "Conference dates: " + submissionDeadline;
+        }
+        return "Event dates not listed";
     }
-    public String getSubmissionDeadline() { return valueOr(submissionDeadline, "Not provided"); }
+    public String getSubmissionDeadline() { return valueOr(submissionDeadline, "Not available"); }
     public int getDaysLeft() { return daysLeft; }
     public String getNotificationDate() { return valueOr(notificationDate, "Not provided"); }
     public String getCameraReadyDate() { return valueOr(cameraReadyDate, "Not provided"); }
     public String getAboutDescription() {
-        return valueOr(aboutDescription, getFullName() + " - " + getTopics());
+        return valueOr(description, valueOr(aboutDescription, getFullName() + " - " + getTopics()));
     }
     public String getTopics() { return valueOr(topics, valueOr(sourceName, "Research and academic conference")); }
-    public String getOfficialUrl() { return valueOr(officialUrl, ""); }
+    public String getOfficialUrl() {
+        return valueOr(registrationUrl, valueOr(officialUrl, ""));
+    }
     public String getStatus() { return valueOr(status, "Upcoming"); }
     public String[] getTags() {
         if (tags != null && tags.length > 0) return tags;

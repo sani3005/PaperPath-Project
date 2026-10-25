@@ -1,9 +1,7 @@
 package com.example.paperpath;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,7 +18,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import java.util.Set;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 @SuppressWarnings("SpellCheckingInspection")
 public class SettingsActivity extends AppCompatActivity {
@@ -48,7 +51,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         initViews();
         displayUserData();
-        loadAndDisplayTracks();
         setupListeners();
     }
 
@@ -83,15 +85,48 @@ public class SettingsActivity extends AppCompatActivity {
         if (userEmail != null && !userEmail.isEmpty()) {
             tvSettingsUserEmail.setText(userEmail);
         } else {
-            tvSettingsUserEmail.setText("renukaveer2021@gmail.com");
+            tvSettingsUserEmail.setText("Account email unavailable");
         }
     }
 
     private void loadAndDisplayTracks() {
-        chipGroupSettingsTracks.removeAllViews();
+        if (userEmail == null || userEmail.trim().isEmpty()) {
+            Toast.makeText(this, "Your account email is missing. Sign in again.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        SharedPreferences prefs = getSharedPreferences(TopicSelectionActivity.PREFS_NAME, Context.MODE_PRIVATE);
-        Set<String> tracks = prefs.getStringSet(TopicSelectionActivity.KEY_USER_TRACKS, null);
+        RetrofitClient.getApiService().getUserTopics(userEmail).enqueue(new Callback<UserTopicsResponse>() {
+            @Override
+            public void onResponse(
+                    Call<UserTopicsResponse> call,
+                    Response<UserTopicsResponse> response
+            ) {
+                if (isFinishing() || isDestroyed()) return;
+                if (!response.isSuccessful() || response.body() == null) {
+                    Toast.makeText(
+                            SettingsActivity.this,
+                            "Could not load your topics (HTTP " + response.code() + ")",
+                            Toast.LENGTH_LONG
+                    ).show();
+                    return;
+                }
+                displayTracks(response.body().getTopics());
+            }
+
+            @Override
+            public void onFailure(Call<UserTopicsResponse> call, Throwable error) {
+                if (isFinishing() || isDestroyed()) return;
+                Toast.makeText(
+                        SettingsActivity.this,
+                        "Cannot load topics. Check that the backend is running.",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
+    private void displayTracks(List<String> tracks) {
+        chipGroupSettingsTracks.removeAllViews();
 
         if (tracks != null && !tracks.isEmpty()) {
             for (String track : tracks) {
@@ -105,12 +140,13 @@ public class SettingsActivity extends AppCompatActivity {
                 chip.setChipStrokeWidth(3.0f);
                 chipGroupSettingsTracks.addView(chip);
             }
-        } else {
-            Chip emptyChip = new Chip(this);
-            emptyChip.setText("No tracks selected (Tap Edit to choose)");
-            emptyChip.setClickable(false);
-            chipGroupSettingsTracks.addView(emptyChip);
+            return;
         }
+
+        Chip emptyChip = new Chip(this);
+        emptyChip.setText("No topics selected (Tap Edit to choose)");
+        emptyChip.setClickable(false);
+        chipGroupSettingsTracks.addView(emptyChip);
     }
 
     private void setupListeners() {
@@ -120,6 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingsActivity.this, TopicSelectionActivity.class);
             intent.putExtra("USER_EMAIL", userEmail);
             intent.putExtra("USER_NAME", userName);
+            intent.putExtra("IS_EDITING_TOPICS", true);
             startActivity(intent);
         });
 

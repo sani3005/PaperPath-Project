@@ -22,11 +22,23 @@ public class Conference {
     @Column(name = "deadline")
     private String deadline;
 
+    @Column(length = 500)
+    private String eventDates;
+
+    @Column(length = 5000)
+    private String description;
+
     @Column(name = "website")
     private String website;
 
     @Column(name = "sourceName")
     private String sourceName;
+
+    @Column(length = 1500)
+    private String topics;
+
+    @Column(length = 1500)
+    private String registrationUrl;
 
 
     protected Conference() {
@@ -43,6 +55,30 @@ public class Conference {
         this.deadline = deadline;
         this.website = website;
         this.sourceName = sourceName;
+    }
+
+    public Conference(Long id, String shortTitle, String longTitle,
+                      String location, String deadline, String website,
+                      String sourceName, String topics) {
+        this(id, shortTitle, longTitle, location, deadline, website, sourceName);
+        this.topics = topics;
+    }
+
+    public Conference(Long id, String shortTitle, String longTitle,
+                      String location, String deadline, String website,
+                      String sourceName, String topics, String registrationUrl) {
+        this(id, shortTitle, longTitle, location, deadline, website, sourceName, topics);
+        this.registrationUrl = registrationUrl;
+    }
+
+    public Conference(Long id, String shortTitle, String longTitle,
+                      String location, String deadline, String website,
+                      String sourceName, String topics, String registrationUrl,
+                      String eventDates, String description) {
+        this(id, shortTitle, longTitle, location, deadline, website,
+                sourceName, topics, registrationUrl);
+        this.eventDates = eventDates;
+        this.description = description;
     }
 
     public Long getId() {
@@ -85,6 +121,22 @@ public class Conference {
         this.deadline = deadline;
     }
 
+    public String getEventDates() {
+        return eventDates;
+    }
+
+    public void setEventDates(String eventDates) {
+        this.eventDates = eventDates;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getWebsite() {
         return website;
     }
@@ -99,5 +151,21 @@ public class Conference {
 
     public void setSourceName(String sourceName) {
         this.sourceName = sourceName;
+    }
+
+    public String getTopics() {
+        return topics;
+    }
+
+    public void setTopics(String topics) {
+        this.topics = topics;
+    }
+
+    public String getRegistrationUrl() {
+        return registrationUrl;
+    }
+
+    public void setRegistrationUrl(String registrationUrl) {
+        this.registrationUrl = registrationUrl;
     }
 }

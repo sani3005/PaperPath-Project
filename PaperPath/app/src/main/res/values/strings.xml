@@ -58,8 +58,6 @@
     <string name="about_title">About</string>
     <string name="key_dates_title">Key Dates</string>
     <string name="deadline_submissions">Paper Submissions Deadline</string>
-    <string name="deadline_acceptance">Acceptance Notification</string>
-    <string name="deadline_camera_ready">Camera Ready</string>
     <string name="save_for_later">Save for Later</string>
     <string name="saved_for_later">Saved for Later</string>
 

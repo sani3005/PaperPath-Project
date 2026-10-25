@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ public class SignInActivity extends AppCompatActivity {
     private ImageView ivPasswordToggle;
     private MaterialButton btnSignIn;
     private TextView tvForgotPassword;
-    private View btnGoogleSignIn;
     private TextView tvSignUpLink;
     private boolean isPasswordVisible = false;
 
@@ -45,7 +43,6 @@ public class SignInActivity extends AppCompatActivity {
         ivPasswordToggle = findViewById(R.id.ivPasswordToggle);
         btnSignIn = findViewById(R.id.btnSignIn);
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
-        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
         tvSignUpLink = findViewById(R.id.tvSignUpLink);
     }
 
@@ -67,18 +64,6 @@ public class SignInActivity extends AppCompatActivity {
 
         // Login CTA
         btnSignIn.setOnClickListener(v -> handleSignIn());
-
-        // Google SSO
-        if (btnGoogleSignIn != null) {
-            btnGoogleSignIn.setOnClickListener(v -> {
-                Toast.makeText(this, "Signing in with Google...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                intent.putExtra("USER_EMAIL", "saniya.g23@gmail.com");
-                intent.putExtra("USER_NAME", "Saniya Gaonkar");
-                startActivity(intent);
-                finish();
-            });
-        }
 
         // Navigate to Sign Up
         tvSignUpLink.setOnClickListener(v -> {

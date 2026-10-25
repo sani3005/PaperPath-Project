@@ -66,6 +66,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Co
         private final TextView tvConfTitle;
         private final ImageView ivBookmarkAction;
         private final TextView tvConfDate;
+        private final TextView tvConfDeadline;
         private final TextView tvConfVenue;
         private final TextView tvTag1;
         private final TextView tvTag2;
@@ -77,6 +78,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Co
             tvConfTitle = itemView.findViewById(R.id.tvConfTitle);
             ivBookmarkAction = itemView.findViewById(R.id.ivBookmarkAction);
             tvConfDate = itemView.findViewById(R.id.tvConfDate);
+            tvConfDeadline = itemView.findViewById(R.id.tvConfDeadline);
             tvConfVenue = itemView.findViewById(R.id.tvConfVenue);
             tvTag1 = itemView.findViewById(R.id.tvTag1);
             tvTag2 = itemView.findViewById(R.id.tvTag2);
@@ -86,6 +88,9 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Co
         public void bind(Conference conf, OnConferenceClickListener clickListener, OnBookmarkToggleListener bookmarkListener) {
             tvConfTitle.setText(conf.getFullName());
             tvConfDate.setText(conf.getConfDates());
+            String deadline = conf.getSubmissionDeadline();
+            tvConfDeadline.setText("Submission deadline: " + deadline);
+            tvConfDeadline.setTextColor(itemView.getContext().getColor(R.color.accent_red));
             tvConfVenue.setText(conf.getVenue());
 
             // Badge icon based on publisher or acronym

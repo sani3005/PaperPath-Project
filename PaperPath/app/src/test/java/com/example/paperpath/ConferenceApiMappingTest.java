@@ -13,6 +13,8 @@ public class ConferenceApiMappingTest {
                 + "\"longTitle\":\"International Conference on AI\","
                 + "\"location\":\"Vancouver, Canada\","
                 + "\"deadline\":\"2027-01-10\","
+                + "\"eventDates\":\"November 2 - November 3, 2027\","
+                + "\"description\":\"Conference description\","
                 + "\"website\":\"https://example.org\","
                 + "\"sourceName\":\"WikiCFP\"}";
 
@@ -24,7 +26,8 @@ public class ConferenceApiMappingTest {
         assertEquals("Vancouver, Canada", conference.getVenue());
         assertEquals("2027-01-10", conference.getSubmissionDeadline());
         assertEquals("https://example.org", conference.getOfficialUrl());
-        assertEquals("Submission deadline: 2027-01-10", conference.getConfDates());
+        assertEquals("November 2 - November 3, 2027", conference.getConfDates());
+        assertEquals("Conference description", conference.getAboutDescription());
         assertEquals("WikiCFP", conference.getTags()[0]);
     }
 }

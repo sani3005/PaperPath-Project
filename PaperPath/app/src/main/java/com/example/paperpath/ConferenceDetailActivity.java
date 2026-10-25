@@ -30,8 +30,6 @@ public class ConferenceDetailActivity extends AppCompatActivity {
     private TextView tvDetailTag3;
     private TextView tvDetailAboutText;
     private TextView tvSubmissionDeadlineDate;
-    private TextView tvAcceptanceDate;
-    private TextView tvCameraReadyDate;
     private MaterialButton btnSaveForLater;
 
     private Conference conference;
@@ -67,8 +65,6 @@ public class ConferenceDetailActivity extends AppCompatActivity {
         tvDetailTag3 = findViewById(R.id.tvDetailTag3);
         tvDetailAboutText = findViewById(R.id.tvDetailAboutText);
         tvSubmissionDeadlineDate = findViewById(R.id.tvSubmissionDeadlineDate);
-        tvAcceptanceDate = findViewById(R.id.tvAcceptanceDate);
-        tvCameraReadyDate = findViewById(R.id.tvCameraReadyDate);
         btnSaveForLater = findViewById(R.id.btnSaveForLater);
     }
 
@@ -103,8 +99,6 @@ public class ConferenceDetailActivity extends AppCompatActivity {
 
         // Key Dates
         tvSubmissionDeadlineDate.setText(conference.getSubmissionDeadline());
-        tvAcceptanceDate.setText(conference.getNotificationDate());
-        tvCameraReadyDate.setText(conference.getCameraReadyDate());
 
         // Badge
         if (conference.getAcronym().contains("ACM") || conference.getFullName().contains("ACM")) {

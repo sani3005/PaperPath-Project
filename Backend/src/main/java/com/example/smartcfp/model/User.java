@@ -2,6 +2,9 @@ package com.example.smartcfp.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users",uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -20,6 +23,11 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_topics", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "topic", nullable = false)
+    private Set<String> topics = new HashSet<>();
 
     protected User() {
     }
@@ -45,6 +53,10 @@ public class User {
         return  password;
     }
 
+    public Set<String> getTopics() {
+        return topics;
+    }
+
     public void setName(String name) {
         this.name=name;
     }
@@ -55,6 +67,11 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setTopics(Set<String> topics) {
+        this.topics.clear();
+        this.topics.addAll(topics);
     }
 
 }

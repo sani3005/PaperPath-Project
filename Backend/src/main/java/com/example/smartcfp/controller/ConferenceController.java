@@ -21,6 +21,12 @@ public class ConferenceController {
         return conferenceService.getAllConferences();
     }
 
+    @GetMapping("/recommended")
+    public List<Conference> getRecommendedConferences(
+            @RequestParam String email) {
+        return conferenceService.getRecommendedConferences(email);
+    }
+
     @GetMapping("/search")
     public List<Conference> searchConference(
             @RequestParam(required = false) String keyword) {

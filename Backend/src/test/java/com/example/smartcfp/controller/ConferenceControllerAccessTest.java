@@ -28,6 +28,34 @@ class ConferenceControllerAccessTest {
         assertPublicGet("/api/conferences/search?keyword=AI");
     }
 
+    @Test
+    void recommendationInputErrorsAreNotMaskedAsAuthorizationFailures() throws Exception {
+        int port = environment.getRequiredProperty("local.server.port", Integer.class);
+        URL url = new URL("http://localhost:" + port + "/api/conferences/recommended");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        try {
+            assertEquals(400, connection.getResponseCode());
+        } finally {
+            connection.disconnect();
+        }
+    }
+
+    @Test
+    void unknownRecommendationUserReturnsNotFoundInsteadOfForbidden() throws Exception {
+        int port = environment.getRequiredProperty("local.server.port", Integer.class);
+        URL url = new URL(
+                "http://localhost:" + port
+                        + "/api/conferences/recommended?email=__missing_test_user__%40example.invalid");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        try {
+            assertEquals(404, connection.getResponseCode());
+        } finally {
+            connection.disconnect();
+        }
+    }
+
     private void assertPublicGet(String path) throws Exception {
         int port = environment.getRequiredProperty("local.server.port", Integer.class);
         URL url = new URL("http://localhost:" + port + path);

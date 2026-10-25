@@ -68,6 +68,19 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollNotifTabs"
         tools:listitem="@layout/item_notification" />
 
+    <TextView
+        android:id="@+id/tvNotificationsEmpty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="24dp"
+        android:textColor="@color/text_secondary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/layoutBottomNavNotif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollNotifTabs" />
+
     <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/layoutBottomNavNotif"

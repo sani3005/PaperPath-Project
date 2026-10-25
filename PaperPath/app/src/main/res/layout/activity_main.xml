@@ -8,17 +8,24 @@
     android:background="@drawable/bg_dark_gradient">
 
     <!-- Top App Bar -->
+
+    <!-- Main Scrollable Body -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutTopBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="407dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="4dp"
         android:paddingStart="20dp"
         android:paddingTop="44dp"
         android:paddingEnd="20dp"
         android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Notification Bell Container with Badge -->
 
         <TextView
             android:id="@+id/tvBrandTitle"
@@ -31,9 +38,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <!-- Notification Bell Container with Badge -->
         <FrameLayout
             android:id="@+id/btnTopNotifications"
             android:layout_width="40dp"
@@ -43,11 +50,10 @@
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Main Scrollable Body -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewHome"
         android:layout_width="match_parent"
@@ -82,6 +88,9 @@
             </LinearLayout>
 
             <!-- Search Bar Row -->
+
+            <!-- Horizontal Categories Row -->
+
             <LinearLayout
                 android:id="@+id/layoutSearchBar"
                 android:layout_width="match_parent"
@@ -124,7 +133,6 @@
                     android:src="@drawable/ic_filter" />
             </LinearLayout>
 
-            <!-- Horizontal Categories Row -->
             <HorizontalScrollView
                 android:id="@+id/scrollCategories"
                 android:layout_width="match_parent"

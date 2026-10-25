@@ -20,4 +20,10 @@ public class ConferenceImportController {
     public Map<String, Object> importConferences() {
         return importService.importAll();
     }
+
+    @PostMapping("/import/{sourceName}")
+    public Map<String, Object> importSource(
+            @PathVariable String sourceName) {
+        return importService.importSource(sourceName);
+    }
 }
