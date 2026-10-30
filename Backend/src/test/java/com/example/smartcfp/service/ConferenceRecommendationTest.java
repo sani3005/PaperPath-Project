@@ -26,6 +26,8 @@ class ConferenceRecommendationTest {
         user.setTopics(Set.of("Artificial Intelligence", "Machine Learning"));
         Conference aiConference = conference("AI and intelligent systems");
         Conference mlConference = conference("Advances in Machine Learning");
+        mlConference.setEventDates("2028-03-01 - 2028-03-03");
+        aiConference.setEventDates("2027-11-01 - 2027-11-03");
         Conference networkingConference = conference("Computer Networks");
         ConferenceRepository conferences = mock(ConferenceRepository.class);
         UserRepository users = mock(UserRepository.class);
@@ -37,7 +39,7 @@ class ConferenceRecommendationTest {
                 new ConferenceService(conferences, users)
                         .getRecommendedConferences(" Person@Example.com ");
 
-        assertEquals(List.of(aiConference, mlConference), result);
+        assertEquals(List.of(mlConference, aiConference), result);
         verify(users).findByEmail("person@example.com");
     }
 

@@ -97,6 +97,24 @@ class ConferencePersistenceTest {
     }
 
     @Test
+    void conferenceListingsAreSortedByNewestEventDateWithUndatedLast() {
+        Conference older = conferenceWithEventDate(1L, "2026-11-10 - 2026-11-12");
+        Conference newer = conferenceWithEventDate(
+                2L, "November 2 - November 3, 2027");
+        Conference latest = conferenceWithEventDate(
+                3L, "2027-12-01 - 2027-12-03");
+        Conference undated = conferenceWithEventDate(4L, null);
+        ConferenceRepository repository = mock(ConferenceRepository.class);
+        when(repository.findAllByOrderByIdDesc())
+                .thenReturn(List.of(undated, older, newer, latest));
+
+        List<Conference> result = new ConferenceService(
+                repository, mock(UserRepository.class)).getAllConferences();
+
+        assertEquals(List.of(latest, newer, older, undated), result);
+    }
+
+    @Test
     void importReportIncludesWhySourceScrapingFailed() throws Exception {
         ConferenceSource source = mock(ConferenceSource.class);
         ConferenceRepository repository = mock(ConferenceRepository.class);
@@ -114,5 +132,13 @@ class ConferencePersistenceTest {
                 "HTTP error fetching URL. Status=403, URL=https://www.allconferencealert.com/",
                 sourceReport.get("message")
         );
+    }
+
+    private Conference conferenceWithEventDate(Long id, String eventDate) {
+        Conference conference = new Conference(
+                id, "Conference " + id, "Conference " + id,
+                "Online", null, "https://example.org/" + id, "TestSource");
+        conference.setEventDates(eventDate);
+        return conference;
     }
 }

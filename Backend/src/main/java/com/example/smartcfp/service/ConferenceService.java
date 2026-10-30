@@ -9,12 +9,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeParseException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ConferenceService {
+    private static final Pattern ISO_DATE =
+            Pattern.compile("\\b\\d{4}-\\d{1,2}-\\d{1,2}\\b");
+    private static final Pattern NUMERIC_DATE =
+            Pattern.compile("\\b(\\d{1,2})/(\\d{1,2})/(\\d{4})\\b");
+    private static final Pattern MONTH_FIRST_DATE = Pattern.compile(
+            "(?i)\\b(January|February|March|April|May|June|July|August|September|October|November|December"
+                    + "|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)"
+                    + "\\s+(\\d{1,2})(?:st|nd|rd|th)?(?:,?\\s+(\\d{4}))?\\b");
+    private static final Pattern DAY_FIRST_DATE = Pattern.compile(
+            "(?i)\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+"
+                    + "(January|February|March|April|May|June|July|August|September|October|November|December"
+                    + "|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)"
+                    + ",?\\s+(\\d{4})\\b");
+    private static final Pattern YEAR = Pattern.compile("\\b(19|20)\\d{2}\\b");
+
     private final ConferenceRepository repository;
     private final UserRepository userRepository;
 
@@ -26,7 +48,7 @@ public class ConferenceService {
     }
 
     public List<Conference> getAllConferences() {
-        return repository.findAllByOrderByIdDesc();
+        return sortByDate(repository.findAllByOrderByIdDesc());
     }
 
     @Transactional(readOnly = true)
@@ -45,16 +67,120 @@ public class ConferenceService {
             return List.of();
         }
 
-        return repository.findAllByOrderByIdDesc().stream()
+        List<Conference> recommended = repository.findAllByOrderByIdDesc().stream()
                 .filter(conference -> matchesTopics(conference, user.getTopics()))
                 .toList();
+        return sortByDate(recommended);
     }
 
     public List<Conference> searchConferences(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
             return getAllConferences();
         }
-        return repository.searchConferences(keyword.trim());
+        return sortByDate(repository.searchConferences(keyword.trim()));
+    }
+
+    private List<Conference> sortByDate(List<Conference> conferences) {
+        return conferences.stream()
+                .sorted(Comparator.comparing(
+                        this::dateForSort,
+                        Comparator.nullsLast(Comparator.reverseOrder())))
+                .toList();
+    }
+
+    private LocalDate dateForSort(Conference conference) {
+        LocalDate eventDate = parseDate(conference.getEventDates());
+        return eventDate != null ? eventDate : parseDate(conference.getDeadline());
+    }
+
+    private LocalDate parseDate(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+
+        Matcher matcher = ISO_DATE.matcher(value);
+        if (matcher.find()) {
+            try {
+                return LocalDate.parse(matcher.group());
+            } catch (DateTimeParseException ignored) {
+                return null;
+            }
+        }
+
+        matcher = NUMERIC_DATE.matcher(value);
+        if (matcher.find()) {
+            try {
+                return LocalDate.of(
+                        Integer.parseInt(matcher.group(3)),
+                        Integer.parseInt(matcher.group(1)),
+                        Integer.parseInt(matcher.group(2)));
+            } catch (DateTimeException | NumberFormatException ignored) {
+                return null;
+            }
+        }
+
+        int year = findYear(value);
+        if (year == 0) {
+            return null;
+        }
+
+        matcher = MONTH_FIRST_DATE.matcher(value);
+        if (matcher.find()) {
+            return monthDate(
+                    matcher.group(1),
+                    matcher.group(2),
+                    matcher.group(3),
+                    year);
+        }
+
+        matcher = DAY_FIRST_DATE.matcher(value);
+        if (matcher.find()) {
+            return monthDate(
+                    matcher.group(2),
+                    matcher.group(1),
+                    matcher.group(3),
+                    year);
+        }
+        return null;
+    }
+
+    private LocalDate monthDate(
+            String monthText, String dayText, String dateYear, int fallbackYear) {
+        try {
+            Month month = Month.valueOf(monthNumber(monthText));
+            int year = dateYear == null ? fallbackYear : Integer.parseInt(dateYear);
+            return LocalDate.of(year, month, Integer.parseInt(dayText));
+        } catch (DateTimeException | NumberFormatException ignored) {
+            return null;
+        }
+    }
+
+    private String monthNumber(String monthText) {
+        String normalized = monthText.toLowerCase(Locale.ROOT);
+        return switch (normalized.substring(0, Math.min(3, normalized.length()))) {
+            case "jan" -> "JANUARY";
+            case "feb" -> "FEBRUARY";
+            case "mar" -> "MARCH";
+            case "apr" -> "APRIL";
+            case "may" -> "MAY";
+            case "jun" -> "JUNE";
+            case "jul" -> "JULY";
+            case "aug" -> "AUGUST";
+            case "sep" -> "SEPTEMBER";
+            case "oct" -> "OCTOBER";
+            case "nov" -> "NOVEMBER";
+            case "dec" -> "DECEMBER";
+            default -> throw new IllegalArgumentException("Unknown month");
+        };
+    }
+
+    private int findYear(String value) {
+        Matcher matcher = YEAR.matcher(value);
+        int year = 0;
+        while (matcher.find()) {
+            year = Integer.parseInt(matcher.group());
+        }
+        return year;
     }
 
     private boolean matchesTopics(Conference conference, Set<String> topics) {
