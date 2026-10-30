@@ -170,65 +170,31 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
                             Response<List<Conference>> response
                     ) {
                         if (isFinishing() || isDestroyed()) return;
-                        if (response.isSuccessful() && response.body() != null
-                                && !response.body().isEmpty()) {
+                        if (response.isSuccessful() && response.body() != null) {
                             displayConferences(response.body());
                             return;
                         }
 
-                        String reason = response.isSuccessful()
-                                ? "No conferences match your saved interests. Showing all conferences."
-                                : "Personalized recommendations are unavailable (HTTP "
-                                        + response.code() + "). Showing all conferences.";
-                        loadAllConferences(reason);
+                        android.widget.Toast.makeText(
+                                MainActivity.this,
+                                "Could not load personalized conferences (HTTP "
+                                        + response.code() + ")",
+                                android.widget.Toast.LENGTH_LONG
+                        ).show();
+                        displayConferences(new ArrayList<>());
                     }
 
                     @Override
                     public void onFailure(Call<List<Conference>> call, Throwable error) {
                         if (isFinishing() || isDestroyed()) return;
-                        loadAllConferences(
-                                "Personalized recommendations are unavailable. Showing all conferences.");
+                        android.widget.Toast.makeText(
+                                MainActivity.this,
+                                "Cannot load personalized conferences. Check that the backend is running.",
+                                android.widget.Toast.LENGTH_LONG
+                        ).show();
+                        displayConferences(new ArrayList<>());
                     }
                 });
-    }
-
-    private void loadAllConferences(String fallbackMessage) {
-        RetrofitClient.getApiService().getConferences().enqueue(new Callback<List<Conference>>() {
-            @Override
-            public void onResponse(
-                    Call<List<Conference>> call,
-                    Response<List<Conference>> response
-            ) {
-                if (isFinishing() || isDestroyed()) return;
-                if (!response.isSuccessful() || response.body() == null) {
-                    android.widget.Toast.makeText(
-                            MainActivity.this,
-                            "Could not load conferences (HTTP " + response.code() + ")",
-                            android.widget.Toast.LENGTH_LONG
-                    ).show();
-                    return;
-                }
-
-                displayConferences(response.body());
-                if (!response.body().isEmpty()) {
-                    android.widget.Toast.makeText(
-                            MainActivity.this,
-                            fallbackMessage,
-                            android.widget.Toast.LENGTH_LONG
-                    ).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Conference>> call, Throwable error) {
-                if (isFinishing() || isDestroyed()) return;
-                android.widget.Toast.makeText(
-                        MainActivity.this,
-                        "Cannot reach the conference server. Check that the backend is running.",
-                        android.widget.Toast.LENGTH_LONG
-                ).show();
-            }
-        });
     }
 
     private void displayConferences(List<Conference> conferences) {
@@ -427,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements ConferenceAdapter
             if (tvNoConferences != null) {
                 tvNoConferences.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
                 tvNoConferences.setText(allConferences.isEmpty()
-                        ? "No conferences found. Import scraped conferences from the backend and try again."
+                        ? "No conferences match your saved topics. Update your topics or try again later."
                         : "No conferences match this category.");
             }
         }
